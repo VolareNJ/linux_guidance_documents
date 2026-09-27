@@ -83,8 +83,16 @@ sudo dpkg -i /tmp/deepin-elf-verify_1.1.10-1_all.deb
 
 ### 安裝本體
 
+宜逕以 apt 裝（自來 deb 檔亦可，apt 自解析其依賴）：
+
 ```bash
-sudo dpkg -i --force-depends ~/下载/example-app_1.2.3-1_amd64.deb
+sudo apt install -y ~/下载/example-app_1.2.3-1_amd64.deb
+```
+
+若必用 `dpkg -i`，當繼以 `apt --fix-broken install` 補其依賴。**勿以 `--force-depends` 為常法**：它跳過依賴檢查，令 postinst 所倚之工具（如 `update-desktop-database`、`xdg-icon-resource`）缺而報 `command not found`，依賴亦恆不滿足。
+
+```bash
+sudo dpkg -i ~/下载/example-app_1.2.3-1_amd64.deb
 sudo apt --fix-broken install -y
 ```
 
@@ -99,10 +107,11 @@ sudo apt update
 sudo apt install -y libnss3 libnspr4 libgtk-3-0t64 libgbm1 libasound2t64 \
   libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libxtst6 \
   libatspi2.0-0t64 libcups2t64 libdrm2 libpango-1.0-0 libcairo2 \
-  libatk1.0-0t64 libatk-bridge2.0-0t64 libgl1 libegl1 fonts-noto-cjk fontconfig
+  libatk1.0-0t64 libatk-bridge2.0-0t64 libgl1 libegl1 fonts-noto-cjk fontconfig \
+  desktop-file-utils xdg-utils
 ```
 
-按：Ubuntu 24.04 以後之包名多帶 `t64` 綴；`libasound2` 為虛擬包，須指 `libasound2t64`。名若不符，apt 之提示自示正名。
+按：Ubuntu 24.04 以後之包名多帶 `t64` 綴；`libasound2` 為虛擬包，須指 `libasound2t64`。名若不符，apt 之提示自示正名。又 `maintainer` 腳本常賴 `update-desktop-database`（屬 `desktop-file-utils`）與 `xdg-icon-resource`（屬 `xdg-utils`）；缺之則 postinst 報 `command not found`，桌面條目與圖標遂不立。此二包多為 deb 之聲明依賴，用 apt 裝本體者自得之。
 
 ## 驗證與除錯
 
@@ -125,6 +134,22 @@ sh /opt/apps/com.example.app/files/bin/launcher.sh
 ```
 
 「任務欄一閃即沒」者，即此腳本立退之故；其報多為缺庫，如 `libnss3.so: cannot open shared object file`。
+
+### GUI 應用之啟動檢驗
+
+前台直跑，易與「逾時而殺」相混（進程受 TERM 而優雅退出，與自退難辨）。宜置諸後台，驗其存亡：
+
+```bash
+sh /opt/apps/com.example.app/files/bin/launcher.sh >/tmp/app.log 2>&1 &
+sleep 10
+pgrep -a mainapp
+tail -n 20 /tmp/app.log
+pkill -9 mainapp
+```
+
+十秒後進程猶存、日誌無致命之報，則可。按：進程名逾十五字者（如 `QtWebEngineProcess`），`pgrep`／`pkill` 之按名匹配失效，須加 `-f`；而 `-f` 之模式宜用字元類（`"QtWebEngine[P]rocess"`），以免誤中自身之 shell。
+
+若啟動即 `Segmentation fault`，而 `ldd` 又無所缺，多是 dlopen 之庫未備（如 `libpulse0`）；其法詳姊妹篇《Distrobox 中微信 deb 之缺庫與段錯誤排查》（`distrobox-wechat-missing-libs.md`）。
 
 ### dpkg 之狀態
 

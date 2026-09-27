@@ -25,6 +25,7 @@
 |---|---|
 | `fedora/graphics/nvidia-driver-install.md` | Fedora 上安裝 NVIDIA 專有驅動（RPMFusion 與官方安裝器兩路） |
 | `fedora/containers/distrobox-deb-app.md` | 以 Distrobox 隔離安裝 Debian 系 deb 應用 |
+| `fedora/containers/distrobox-wechat-missing-libs.md` | Distrobox 中微信 deb 之 dlopen 缺庫與段錯誤排查（libpulse0 等） |
 | `fedora/desktop/zed-manual-install.md` | Zed 綠色包之安置與桌面整合 |
 | `fedora/desktop/fira-code-cjk-fallback.md` | Fira Code 缺字時以 fontconfig 用戶規則回退思源宋體 |
 | `fedora/desktop/kde-font-features-ligatures.md` | KDE 字體對話框之「字體特性」欄與 Fira Code 連字 |

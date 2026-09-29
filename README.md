@@ -31,6 +31,7 @@
 | `fedora/desktop/kde-font-features-ligatures.md` | KDE 字體對話框之「字體特性」欄與 Fira Code 連字 |
 | `fedora/desktop/dolphin-servicemenu.md` | Dolphin 右鍵自訂服務選單（以指定程式開啟）與 KDE 之可執行位檢查 |
 | `fedora/input/ibus-libpinyin-double-pinyin.md` | IBus 智能拼音之雙拼設定（小鶴等） |
+| `fedora/input/fcitx5-kde-wayland-shuangpin.md` | fcitx5 於 KDE Wayland 之配置（kwin 虛擬鍵盤、imsettings 環境變數、小鶴雙拼） |
 
 ## 版本管理
 

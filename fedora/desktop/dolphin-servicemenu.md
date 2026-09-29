@@ -39,7 +39,6 @@ X-KDE-Priority=TopLevel
 [Desktop Action openWithZed]
 Name=Open with Zed
 Name[zh_CN]=用 Zed 打开
-Name[zh_TW]=以 Zed 開啟
 Icon=/home/<user>/.local/zed.app/share/icons/hicolor/512x512/apps/zed.png
 Exec=/home/<user>/.local/zed.app/bin/zed %F
 ```

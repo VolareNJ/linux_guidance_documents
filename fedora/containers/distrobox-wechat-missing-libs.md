@@ -67,7 +67,7 @@ wechat
 | `error while loading shared libraries: libnss3.so` | 缺 NSS | `sudo apt install libnss3` |
 | 補後仍潰，或悄然而亡 | dlopen 之庫缺（`libpulse.so.0` 等），NULL 未檢 | `sudo apt install libpulse0`；以 strace 定位 |
 | `WeChatAppEx: ... libasound.so.2` | 小程序子進程須 ALSA | `sudo apt install libasound2t64` |
-| `driver (null)`、`failed to load driver: nvidia-drm`、`KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied` | 容器無 NVIDIA 用戶態庫，`card1` 屬宿主 gid 而未映射 | 無害，自退軟件渲染；欲用硬體加速，另詳容器 GPU 之設 |
+| `driver (null)`、`failed to load driver: nvidia-drm`、`KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied` | 容器無 NVIDIA 用戶態庫，`card1` 屬宿主 gid 而未映射 | 無害，自退軟件渲染；欲用硬體加速，詳姊妹篇《Distrobox 容器內 NVIDIA Vulkan 之啟用》（`distrobox-nvidia-vulkan-icd.md`） |
 | `Gtk-Message: Failed to load module "..."` | 宿主桌面之 GTK 模組 | 無害，可置之不問 |
 
 ## 回退

@@ -81,11 +81,41 @@ update-desktop-database ~/.local/share/applications
 
 前者無輸出即通過；後者刷新資料庫，令選單即見。
 
+### 四、圖示之補
+
+`Icon=` 所書之名（或絕對路徑），須確有對應之圖示，否則選單示預設圖。先辨之：
+
+```bash
+find ~/.local/share/icons /usr/share/icons -iname '*localsend*' 2>/dev/null
+```
+
+AppImage 內多自帶圖示，可解出而裝之（圖示名須與 `Icon=` 相符）：
+
+```bash
+mkdir -p /tmp/ls-icon && cd /tmp/ls-icon
+~/.local/bin/localsend --appimage-extract 'usr/share/icons/*'
+for s in 32 128 256; do
+  png="squashfs-root/usr/share/icons/hicolor/${s}x${s}/apps/localsend.png"
+  xdg-icon-resource install --novendor --size "$s" "$png" localsend
+done
+kbuildsycoca6
+```
+
+尺寸以 AppImage 內實有者為準；`~/.local/share/icons/hicolor/` 之骨幹 `xdg-icon-resource` 自會補之，`index.theme` 無需自備（系統者可疊加）。GTK 系程序可另以 `gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor` 刷之。
+
+若選單仍示預設圖（主題查找不效），則改用絕對路徑之法——`Icon=` 逕書圖示檔之絕對路徑，不賴主題查找，最為直截：
+
+```bash
+install -Dm644 ~/.local/share/icons/hicolor/256x256/apps/localsend.png ~/.local/share/icons/localsend.png
+# desktop 文件：Icon=/home/<user>/.local/share/icons/localsend.png
+kbuildsycoca6
+```
+
 ## 驗證
 
 - `desktop-file-validate` 無輸出；
 - `readlink -f` 對所建連結皆能示出實體；
-- 應用選單中見 LocalSend，點之可啟。
+- 應用選單中見 LocalSend 及其圖示，點之可啟。
 
 ## 疑難
 
@@ -95,6 +125,7 @@ update-desktop-database ~/.local/share/applications
 | 啟動器云「沒有 Exec 字段」等 | `.desktop` 非文本，實為二進位之硬連結或副本 | `file` 辨之；刪之，另書文本 desktop 文件 |
 | 運行云 `fuse: device not found` 或 `Cannot mount AppImage` | FUSE 未備：未裝 fuse3、未載 fuse 模組，或 `/dev/fuse` 缺失 | `sudo modprobe fuse`；裝 fuse3；或以 `--appimage-extract-and-run` 運行 |
 | 選單中不見其項 | 資料庫未刷新，或會話未重入 | `update-desktop-database`；註銷重登 |
+| 選單中無圖示，或示預設圖 | `Icon=` 之名於圖示主題查無對應，或主題查找不效 | 自 AppImage 解出圖示，以 `xdg-icon-resource` 裝之；不效則改用絕對路徑（詳步驟四），末以 `kbuildsycoca6` 刷之 |
 
 ## 回退
 
@@ -102,6 +133,13 @@ update-desktop-database ~/.local/share/applications
 rm ~/.local/share/applications/localsend.desktop
 rm ~/.local/share/localsend   # 若曾建此軟連結
 update-desktop-database ~/.local/share/applications
+```
+
+若曾裝圖示，並刪之：
+
+```bash
+rm ~/.local/share/icons/hicolor/{32x32,128x128,256x256}/apps/localsend.png
+rm ~/.local/share/icons/localsend.png
 ```
 
 若所刪為硬連結（連結數大於 1），刪之不動本體；本體自在 `~/.local/bin/localsend`。

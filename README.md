@@ -24,7 +24,7 @@
 | 路徑 | 主題 |
 |---|---|
 | `fedora/graphics/nvidia-driver-install.md` | Fedora 上安裝 NVIDIA 專有驅動（RPMFusion 與官方安裝器兩路） |
-| `fedora/containers/distrobox-deb-app.md` | 以 Distrobox 隔離安裝 Debian 系 deb 應用 |
+| `fedora/containers/distrobox-deb-app.md` | 以 Distrobox 隔離安裝 Debian 系 deb 應用（含應用之辨名、桌面匯出與撤銷） |
 | `fedora/containers/distrobox-wechat-missing-libs.md` | Distrobox 中微信 deb 之 dlopen 缺庫與段錯誤排查（libpulse0 等） |
 | `fedora/containers/distrobox-nvidia-vulkan-icd.md` | Distrobox 容器內 NVIDIA Vulkan 之啟用（ICD 絕對路徑之修） |
 | `fedora/desktop/zed-manual-install.md` | Zed 綠色包之安置與桌面整合 |

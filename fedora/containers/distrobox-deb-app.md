@@ -171,15 +171,63 @@ sudo chmod 4755 /opt/apps/com.example.app/files/wbrowser/chrome-sandbox
 
 ## 桌面整合
 
+### 尋應用之名（匯出前）
+
+`distrobox-export --app` 之名，不必先知全名：其掃描容器內 desktop 檔之 `Exec=` 與 `Name=` 行，凡含所給字樣者皆中。故可給可執行檔之片段（如 `baidu`），可給顯示名之片段（如 `百度`），亦可逕指 desktop 檔之絕對路徑。惟應用既裝，容器內必有 desktop 檔；此乃匯出之根，首當察之。
+
+下以百度網盤為例：容器名 `baidu`，desktop 檔名 `baidunetdisk`。他者以己之實況代之。
+
+```bash
+distrobox enter baidu
+
+# 一、觀桌面檔（最直）
+ls /usr/share/applications/
+grep -il baidu /usr/share/applications/*.desktop
+grep -E '^(Name|Exec)=' /usr/share/applications/baidunetdisk.desktop
+
+# 二、觀包之記載（deb 系；rpm 系以 rpm -qa | grep -i 與 rpm -ql 代之）
+dpkg -l | grep -i baidu
+dpkg -L baidunetdisk | grep -E '\.desktop$|/bin/'
+
+# 三、觀可執行檔
+command -v baidunetdisk
+ls /opt/baidunetdisk
+```
+
+按：`--app` 之值，即 desktop 檔名去 `.desktop` 之謂；然非必精確至此，片段亦中。若應用原無 desktop 檔（如 AppImage 之流），則此路不通，當循後文「手寫 desktop 檔」之法。
+
 ### 匯出（於容器內）
 
 ```bash
-distrobox-export --app com.example.app
-# 欲去「(on appbox)」之綴，可加：
-distrobox-export --app com.example.app --export-label none
+distrobox-export --app baidunetdisk
+# 名字不確者，可逕給片段或中文：
+distrobox-export --app baidu
+distrobox-export --app 百度
+# 欲去「(on baidu)」之綴，可加：
+distrobox-export --app baidunetdisk --export-label none
 ```
 
-注意：distrobox 1.8 之 `distrobox-export` 無 `--container` 旗標，於宿主行之亦不合；當於容器內行之。若報 `cannot find any desktop files`，即該應用未裝成。
+匯出之物落於宿主 `~/.local/share/applications/<容器名>-<原名>.desktop`（本例即 `baidu-baidunetdisk.desktop`），所需圖標亦複製入宿主 `~/.local/share/icons/`，事畢自動於宿主跑 `update-desktop-database`，應用菜單即見。
+
+**宿主 `~/.local/bin/` 不因 `--app` 而生物**：容器之檔案系統與宿主相隔，未匯出者宿主一無所見；向於宿主 `~/.local/bin` 求容器之應用而不得者，其故在此。欲得命令行入口，另以 `--bin` 匯之（見下）。
+
+注意：distrobox 1.8 之 `distrobox-export` 無 `--container` 旗標，於宿主行之亦不合；當於容器內行之。若報 `cannot find any desktop files`，乃掃描無所中：或應用未裝成，或所給字樣太偏；以「尋應用之名」之法覆查。
+
+### 匯出命令行入口（可選）
+
+```bash
+distrobox-export --bin /usr/bin/baidunetdisk --export-path ~/.local/bin
+```
+
+自此宿主 `~/.local/bin/baidunetdisk` 為一包裝腳本，徑連容器而運（`--export-path` 指明落處，如 `~/.local/bin`）。路徑因包而異，以 `command -v` 所報為準；若程序在 `/opt` 下而無 `/usr/bin` 之軟鏈，逕指其實路。
+
+### 察看與撤銷
+
+```bash
+distrobox-export --list-apps                  # 列本容器已匯出之應用
+distrobox-export --app baidunetdisk --delete  # 撤銷匯出（桌面項與圖標俱清）
+```
+
 
 ### 手寫 desktop 檔（可控）
 
@@ -295,7 +343,7 @@ distrobox create --name NAME --image IMAGE
 distrobox enter NAME
 distrobox list
 distrobox rm NAME
-distrobox-export --app APP [--export-label none]
+distrobox-export --app APP [--export-label none]   # APP 可為片段；另見 --list-apps 與 --delete
 podman system df
 ```
 

@@ -335,6 +335,9 @@ du -sh ~/.local/share/containers/storage
 | `cannot find any desktop files` | 應用未裝成 | 重裝並驗 `dpkg -l` |
 | 一閃即沒 | 缺庫 | 以 ldd 迭代補之 |
 | `libnss3.so: cannot open shared object file` | 同上 | `apt install libnss3` |
+| `KMS: DRM_IOCTL_MODE_CREATE_DUMB failed: Permission denied` 刷屏 | 容器內無權動宿主之 DRM（`/dev/dri` 之 `card*` 為 `660 nobody:nogroup`），Chromium 軟渲染仍試 KMS | 多為噪音，非致命；Exec 加 `--disable-gpu` 即絕 |
+| `A JavaScript error occurred in the main process`，並見 `libXt.so.6: cannot open shared object file` | Electron 之 uiohook-napi（全局熱鍵）缺 libXt | Ubuntu 24.04 以後 `sudo apt install libxt6t64`（舊版為 `libxt6`） |
+| `Gtk-Message: Failed to load module "colorreload-gtk-module"` 之類 | 宿主 KDE 所注入之 GTK 模組，容器內無 | 無害，置之 |
 
 ## 附錄：常用命令
 

@@ -8,6 +8,7 @@
 - 相關硬體：不涉
 - 前提：運行 AppImage 須 FUSE 與 `/dev/fuse`；本機 fuse3 已裝
 - 撰寫：2026-10-04
+- 補記：2026-10-06（補「`<user>` 占位符未易」一誤）
 
 ## 適用
 
@@ -72,6 +73,12 @@ chmod 644 ~/.local/share/applications/localsend.desktop
 
 `Icon` 之名於系統無對應圖示者，至多示預設圖，不妨啟動。
 
+**抄錄之戒**：上例之 `<user>` 為占位符，抄錄時必易為真實用戶名（如 `/home/alice/...`）。`<`、`>` 於 `Exec` 中屬保留字元，`desktop-file-validate` 報 error 即是此誤；誤者點擊全無反應，不報錯、不見窗，狀似 AppImage 損壞，實則路徑未嘗存在。凡新建 desktop 文件，必先驗之：
+
+```bash
+desktop-file-validate ~/.local/share/applications/<名>.desktop
+```
+
 ### 三、驗證與刷新
 
 ```bash
@@ -126,6 +133,7 @@ kbuildsycoca6
 | 運行云 `fuse: device not found` 或 `Cannot mount AppImage` | FUSE 未備：未裝 fuse3、未載 fuse 模組，或 `/dev/fuse` 缺失 | `sudo modprobe fuse`；裝 fuse3；或以 `--appimage-extract-and-run` 運行 |
 | 選單中不見其項 | 資料庫未刷新，或會話未重入 | `update-desktop-database`；註銷重登 |
 | 選單中無圖示，或示預設圖 | `Icon=` 之名於圖示主題查無對應，或主題查找不效 | 自 AppImage 解出圖示，以 `xdg-icon-resource` 裝之；不效則改用絕對路徑（詳步驟四），末以 `kbuildsycoca6` 刷之 |
+| 點擊全無反應，既不報錯，亦不見窗 | `Exec` 尚存示例之字面 `<user>`（或他占位符）未易為真實用戶名；`<`、`>` 屬 `Exec` 之保留字元 | `desktop-file-validate` 察之；改書真實絕對路徑，`update-desktop-database` 後以 `kbuildsycoca6` 刷之 |
 
 ## 回退
 

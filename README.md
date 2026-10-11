@@ -5,7 +5,7 @@
 ## 目錄之例
 
 - 第一層為環境：`fedora/`、`debian/`、`arch/` 等；跨發行版而通用者入 `generic/`。
-- 第二層為主題：`graphics/`（顯示與驅動）、`containers/`（容器與隔離）、`desktop/`（桌面與應用）、`input/`（輸入法）、`packaging/`（打包與套件）、`system/`（系統與引導）、`network/`（網路）等。
+- 第二層為主題：`graphics/`（顯示與驅動）、`containers/`（容器與隔離）、`desktop/`（桌面與應用）、`input/`（輸入法）、`packaging/`（打包與套件）、`system/`（系統與引導）、`network/`（網路）、`storage/`（存儲與掛載）等。
 - 檔名用小寫英文與連字號（kebab-case），如 `nvidia-driver-install.md`。
 
 ## 體例
@@ -33,9 +33,11 @@
 | `fedora/desktop/dolphin-servicemenu.md` | Dolphin 右鍵自訂服務選單（以指定程式開啟）與 KDE 之可執行位檢查 |
 | `fedora/desktop/appimage-desktop-entry.md` | AppImage 之桌面項集成與辨誤（LocalSend：自指軟連結、以二進位冒充 .desktop、照抄 `<user>` 占位符致點擊無反應、圖示之補與 FUSE） |
 | `fedora/desktop/appimage-gearlever-management.md` | 以 Gear Lever（Flatpak）代管 AppImage：安装、CLI 整合、目录布局与旧桌面项之清理 |
+| `fedora/desktop/onedriver-files-on-demand.md` | onedriver 之 OneDrive 按需挂载（COPR 安装、命令行认证避 Wayland 崩溃、systemd 用户服务） |
 | `fedora/input/ibus-libpinyin-double-pinyin.md` | IBus 智能拼音之雙拼設定（小鶴等） |
 | `fedora/input/fcitx5-kde-wayland-shuangpin.md` | fcitx5 於 KDE Wayland 之配置（kwin 虛擬鍵盤、imsettings 環境變數、小鶴雙拼） |
 | `fedora/network/ath12k-wcn7850-5ghz-fix.md` | Qualcomm WCN7850 於 CN 管域下 5GHz 全隱之修（本地補丁 ath12k 模組、MOK 簽名、depmod override） |
+| `fedora/storage/partition-automount-run-media.md` | 分区开机自动挂载于 /run/media/<用户> 之下（tmpfiles.d 加 fstab，及与 udisks 之关系） |
 
 ## 版本管理
 

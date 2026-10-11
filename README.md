@@ -32,6 +32,7 @@
 | `fedora/desktop/kde-font-features-ligatures.md` | KDE 字體對話框之「字體特性」欄與 Fira Code 連字 |
 | `fedora/desktop/dolphin-servicemenu.md` | Dolphin 右鍵自訂服務選單（以指定程式開啟）與 KDE 之可執行位檢查 |
 | `fedora/desktop/appimage-desktop-entry.md` | AppImage 之桌面項集成與辨誤（LocalSend：自指軟連結、以二進位冒充 .desktop、照抄 `<user>` 占位符致點擊無反應、圖示之補與 FUSE） |
+| `fedora/desktop/appimage-gearlever-management.md` | 以 Gear Lever（Flatpak）代管 AppImage：安装、CLI 整合、目录布局与旧桌面项之清理 |
 | `fedora/input/ibus-libpinyin-double-pinyin.md` | IBus 智能拼音之雙拼設定（小鶴等） |
 | `fedora/input/fcitx5-kde-wayland-shuangpin.md` | fcitx5 於 KDE Wayland 之配置（kwin 虛擬鍵盤、imsettings 環境變數、小鶴雙拼） |
 | `fedora/network/ath12k-wcn7850-5ghz-fix.md` | Qualcomm WCN7850 於 CN 管域下 5GHz 全隱之修（本地補丁 ath12k 模組、MOK 簽名、depmod override） |

@@ -34,6 +34,7 @@
 | `fedora/desktop/appimage-desktop-entry.md` | AppImage 之桌面項集成與辨誤（LocalSend：自指軟連結、以二進位冒充 .desktop、照抄 `<user>` 占位符致點擊無反應、圖示之補與 FUSE） |
 | `fedora/desktop/appimage-gearlever-management.md` | 以 Gear Lever（Flatpak）代管 AppImage：安装、CLI 整合、目录布局与旧桌面项之清理 |
 | `fedora/desktop/onedriver-files-on-demand.md` | onedriver 之 OneDrive 按需挂载（COPR 安装、命令行认证避 Wayland 崩溃、systemd 用户服务） |
+| `fedora/desktop/onedrive-sync-dir-external-disk.md` | onedrive for linux 之同步目录设于独立数据盘（sync_dir 配置、.nosync 挂载守卫、resync 与常驻服务） |
 | `fedora/input/ibus-libpinyin-double-pinyin.md` | IBus 智能拼音之雙拼設定（小鶴等） |
 | `fedora/input/fcitx5-kde-wayland-shuangpin.md` | fcitx5 於 KDE Wayland 之配置（kwin 虛擬鍵盤、imsettings 環境變數、小鶴雙拼） |
 | `fedora/network/ath12k-wcn7850-5ghz-fix.md` | Qualcomm WCN7850 於 CN 管域下 5GHz 全隱之修（本地補丁 ath12k 模組、MOK 簽名、depmod override） |

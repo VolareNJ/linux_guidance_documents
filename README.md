@@ -40,6 +40,7 @@
 | `fedora/network/ath12k-wcn7850-5ghz-fix.md` | Qualcomm WCN7850 於 CN 管域下 5GHz 全隱之修（本地補丁 ath12k 模組、MOK 簽名、depmod override） |
 | `fedora/storage/partition-automount-run-media.md` | 分区开机自动挂载于 /run/media/<用户> 之下（tmpfiles.d 加 fstab，及与 udisks 之关系） |
 | `fedora/storage/partition-label-and-mountpoint.md` | 分区之名：文件系统标签（xfs_io 联机改之）与挂载点路径之改（fstab 与 tmpfiles 联动） |
+| `fedora/packaging/pnpm-global-cli-desktop-entry.md` | 以 pnpm 于用户目录安装 Node CLI（以 dsh 为例）并制作 KDE 桌面项 |
 
 ## 版本管理
 

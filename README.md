@@ -41,6 +41,7 @@
 | `fedora/storage/partition-automount-run-media.md` | 分区开机自动挂载于 /run/media/<用户> 之下（tmpfiles.d 加 fstab，及与 udisks 之关系） |
 | `fedora/storage/partition-label-and-mountpoint.md` | 分区之名：文件系统标签（xfs_io 联机改之）与挂载点路径之改（fstab 与 tmpfiles 联动） |
 | `fedora/packaging/pnpm-global-cli-desktop-entry.md` | 以 pnpm 于用户目录安装 Node CLI（以 dsh 为例）并制作 KDE 桌面项 |
+| `fedora/typesetting/texlive-chinese-xelatex.md` | Fedora 上部署 TeX Live 中文排版：ctex/xeCJK 之装、字体之择与 XeLaTeX 验证 |
 
 ## 版本管理
 
